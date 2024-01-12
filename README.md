@@ -1,5 +1,5 @@
 # OptimizationTechniques
-Project 2024-2024 for Optimization Techniques
+Project 2023-2024 for Optimization Techniques(Τραυλος)
 
 
 7ο Εξάμηνο
