@@ -45,8 +45,8 @@ for i=1:population
 end
 
 
-a = bestfitness(population,chromosomes,u1,u2,f_values);
-%new = crossover(chromosomes);
+
+new = crossover(chromosomes);
 
 toc
 

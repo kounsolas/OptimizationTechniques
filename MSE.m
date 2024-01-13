@@ -1,9 +1,5 @@
-function mse = MSE(values,f_aprox,u1,u2)
+function mse = MSE(f_value,gaussian_value)
 
-syms x y
-
-approximate_val = double(subs(f_aprox,{x,y},{u1,u2}));
-mse = abs((values-approximate_val).^2);
-
-
+%ypotheto oti doulebei sosta
+mse = abs((f_value-gaussian_value)^2);
 end

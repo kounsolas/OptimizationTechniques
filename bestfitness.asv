@@ -1,0 +1,16 @@
+function bestCandidates = bestfitness(population,chromosomes,u1,u2,f_values)
+%kano evaluate me to mse kathe f
+
+    values = zeros(1,length(chromosomes));
+    
+   
+    
+  for i=1:length(f_values)
+       for j=1:length(f_values)
+           values_gaussian(i,j) = generateGaussian(chromosomes(i,:)) 
+
+    
+    bestCandidates = selection(values,chromosomes);
+
+
+end
