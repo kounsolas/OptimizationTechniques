@@ -8,9 +8,6 @@ function selected = selection(f_values,population,chromosomes,u1,u2)
     for i=1:50
         [~,index(i)] = min(metric);
         metric(index) = NaN;
-
-    end
-
-    selected = chromosomes(index,:);
+    selected = chromosomes(randperm(height(chromosomes),50),:);
    
 end

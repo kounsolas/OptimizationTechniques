@@ -1,5 +1,4 @@
-function value_Gaussian = generateGaussian(chromosome,x1,y1)
-
+function Gaussian = fittingFunction(chromosome)
 syms x y
 
 gaussianFunctions = cell(1,15);
@@ -25,6 +24,6 @@ Gaussian = gaussianFunctions{1};
         Gaussian = Gaussian + gaussianFunctions{j};
     end
 
-    %epistrefo tin timi tis gaussian gia x1,y1 simeio
-    value_Gaussian = double(subs(Gaussian,{x,y},{x1,y1}));
+
+
 end

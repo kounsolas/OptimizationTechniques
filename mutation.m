@@ -1,8 +1,8 @@
-function mutated = mutation(chromosomes)
+function mutated = mutation(selectedChromosomes)
 % function to perform mutations on the 50 best candidates
 
 
-selectedChromosomes = selection(chromosomes);
+
 mutatedChromosomes = selectedChromosomes;
 for i=1:30
 
@@ -24,10 +24,13 @@ for i=1:30
             case 0
                 mutatedChromosomes(i,p) = 0.3 + (1-0.3)*rand;
         end
+    else
+        index(i) = 0;
     
     end
 
 end
+
 
 k = index(find(index));
 mutation = zeros(length(k),length(mutatedChromosomes(1,:)));

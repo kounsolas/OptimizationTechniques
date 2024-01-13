@@ -25,6 +25,13 @@ Gaussian = gaussianFunctions{1};
         Gaussian = Gaussian + gaussianFunctions{j};
     end
 
-    %epistrefo tin timi tis gaussian gia x1,y1 simeio
-    value_Gaussian = double(subs(Gaussian,{x,y},{x1,y1}));
+    %epistrefo tin timi tis gaussian gia x1,y1 vectors
+   %{
+    value_Gaussian = double(subs(Gaussian,{x,y},{x1(:),y1(:)}));
+    value_Gaussian = reshape(value_Gaussian, size(x1));
+   %}
+
+    [X, Y] = meshgrid(x1, y1);
+    value_Gaussian = double(subs(Gaussian, {x, y}, {X(:), Y(:)}));
+    value_Gaussian = reshape(value_Gaussian, size(X));
 end
