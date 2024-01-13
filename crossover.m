@@ -1,7 +1,7 @@
+%pairnei san orisma ton pinaka 100x75 (chromosomes)
 function new_generation = crossover(chromosomes)
 
 selectedChromosomes = selection(chromosomes);
-
 
 for i=1:30
     prob = rand;
@@ -37,9 +37,6 @@ for i=1:30
     end
 end
 
-
-
 new_generation = [selectedChromosomes;new_chromosome1;new_chromosome2];
-
 
 end
