@@ -48,11 +48,17 @@ for i=1:maxgenerations
     crossovers = crossover(a);
     mutated = mutation(a);
     gamatoi = [crossovers;mutated];
-    
-    for j=1:(population-size(gamatoi,1))
+    n = population-size(gamatoi,1);
+    k=1;
+    beta_males = zeros(n,chromosomesize);
+    for j=1:n
         beta_males(j,:) = generateChromosome(chromosomesize);
+        k=k+1;
         %kathe grammi einai mia f
     end
+    
+
+
     
     new_generation=[gamatoi;beta_males];
 end
@@ -74,10 +80,10 @@ best_function = fittingFunction(best_chromosome);
     
    
 
-fsurf(f_aprox)
+fsurf(best_function,[-1 2 -2 1])
 colorbar
 figure
-fsurf(f)
+fsurf(f,[-1 2 -2 1])
 colorbar
 
 

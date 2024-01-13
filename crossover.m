@@ -4,6 +4,7 @@ function new_generation = crossover(selectedChromosomes)
 
 for i=1:30
     prob = rand;
+   
     if prob > 0.5
         a = randi(50);
         b = randi(50);
