@@ -3,24 +3,34 @@ function selected = selection(f_values,population,chromosomes,u1,u2)
     
     %dialegei stin TYXI 50 apo ta 100 chromosomes
     %selected = zeros(50,length(chromosomes(1,:))); 
-  
+    % metric is the MSE for each of the chromosomes
+   
     metric = bestfitness(f_values,population,chromosomes,u1,u2);
     output = sort(metric);
-    weight = sort(linspace(0.005,1,100),'descend');
+    weight = sort(linspace(0.005,1,population),'descend');
     
-    out = randsample(output,50,true,weight);
+    out = randsample(output,(population/2),true,weight);
 
-
+    %index=zeros(1,length(out));
     for i=1:length(out)
-        index(i) = find(metric==out(i));
+
+        if length(find(metric==out(i))) > 1
+            k = find(metric==out(i));
+            index(i) = k(1);
+            %i = i + length(find(metric==out(i)));
+            %i+length(find(metric==out(i)))-1
+        else
+            index(i) = find(metric==out(i));
+        end
     end
 
     selected = chromosomes(index,:);
+   
 
 %{
 metric = bestfitness(f_values,population,chromosomes,u1,u2);
 
-    for i=1:50
+    for i=1:(population/2)
         [~,index(i)] = min(metric);
         metric(index(i)) = NaN;
 
@@ -28,5 +38,6 @@ metric = bestfitness(f_values,population,chromosomes,u1,u2);
 
     selected = chromosomes(index,:);
 %}
+
 
 end

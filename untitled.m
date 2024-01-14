@@ -11,7 +11,7 @@
 clear;
 clc;
 tic
-maxgenerations = 1000;
+maxgenerations = 3000;
 population = 100; %arithmos pithanon lyseon(list of chromosomes), diladi
     % arithmos ton pithanon synartiseon pou paragontai apo syndyasmous ton 15 gaussian
 numberofGaussians = 15;
@@ -20,8 +20,8 @@ chromosomesize = numberofGaussians*5; %καθε gaussian exei 5 stoixeia kai to 
 
 syms x y
 f(x, y) = sin(x + y) * sin(y^2);
-u1 = linspace(-1, 2, 40);
-u2 = linspace(-2, 1, 40);
+u1 = linspace(-1, 2, 25);
+u2 = linspace(-2, 1, 25);
     
 % Create a grid of values for u1 and u2
 [U1, U2] = meshgrid(u1, u2);
@@ -40,12 +40,26 @@ for i=1:population
   %kathe grammi einai mia f
 end
 
+    a = selection(f_values,population,chromosomes,u1,u2);
+    crossovers = crossover(a);
+    mutated = mutation(a);
+    gamatoi = [crossovers;mutated];
+    n = population-size(gamatoi,1);
+    beta_males = zeros(n,chromosomesize);
+    for j=1:n
+        beta_males(j,:) = generateChromosome(chromosomesize);
+        %kathe grammi einai mia f
+    end
+    
+
+    new_generation=[gamatoi;beta_males];
+
 
 for i=1:maxgenerations
   
     i
-    a = selection(f_values,population,chromosomes,u1,u2);
-    crossovers = crossover(a);
+    a = selection(f_values,population,new_generation,u1,u2);
+    crossovers = intermediateCrossover(a);
     mutated = mutation(a);
     gamatoi = [crossovers;mutated];
     n = population-size(gamatoi,1);
@@ -62,7 +76,7 @@ end
 
 
 for i=1:population
-    gaussian_values = generateGaussian(chromosomes(i,:),u1,u2);
+    gaussian_values = generateGaussian(new_generation(i,:),u1,u2);
     best(i) = MSE(f_values,gaussian_values);
 end
 

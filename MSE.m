@@ -6,7 +6,7 @@ function p = MSE(f_values,gaussian_values)
 %ypotheto oti doulebei sosta
 
 
-mse = (1/40^2)*abs((f_values-gaussian_values).^2);
+mse = (1/25^2)*abs((f_values-gaussian_values).^2);
 
 
 p = sum(sum(mse)); 

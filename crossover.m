@@ -12,7 +12,7 @@ for i=1:30
         if c<=(size(selectedChromosomes,2)-1)
             if a == b
                 b = randi(size(selectedChromosomes,1));
-         
+                
                 new_start1 = selectedChromosomes(a,1:c) ;
                 new_finish1 = selectedChromosomes(a,c+1:end);
                 new_start2 = selectedChromosomes(b,1:c);
