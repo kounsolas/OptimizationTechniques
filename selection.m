@@ -6,7 +6,7 @@ function selected = selection(f_values,population,chromosomes,u1,u2)
   
     metric = bestfitness(f_values,population,chromosomes,u1,u2);
     output = sort(metric);
-    weight = sort(linspace(0.005,0.9,100),'descend');
+    weight = sort(linspace(0.005,1,100),'descend');
     
     out = randsample(output,50,true,weight);
 
@@ -16,5 +16,17 @@ function selected = selection(f_values,population,chromosomes,u1,u2)
     end
 
     selected = chromosomes(index,:);
+
+%{
+metric = bestfitness(f_values,population,chromosomes,u1,u2);
+
+    for i=1:50
+        [~,index(i)] = min(metric);
+        metric(index(i)) = NaN;
+
+    end
+
+    selected = chromosomes(index,:);
+%}
 
 end

@@ -6,22 +6,26 @@ for i=1:30
     prob = rand;
    
     if prob > 0.5
-        a = randi(50);
-        b = randi(50);
-        c =  randi(75);
-        if c<=74
+        a = randi(size(selectedChromosomes,1));
+        b = randi(size(selectedChromosomes,1));
+        c =  randi(size(selectedChromosomes,2));
+        if c<=(size(selectedChromosomes,2)-1)
             if a == b
-                b = randi(50);
+                b = randi(size(selectedChromosomes,1));
          
-                new1 = selectedChromosomes(a,1:c) ;
-                new2 = selectedChromosomes(b,c+1:end);
-                new_chromosome1(i,:) = [new1 new2];
-                new_chromosome2(i,:) = [new2 new1];
+                new_start1 = selectedChromosomes(a,1:c) ;
+                new_finish1 = selectedChromosomes(a,c+1:end);
+                new_start2 = selectedChromosomes(b,1:c);
+                new_finish2 = selectedChromosomes(b,c+1:end);
+                new_chromosome1(i,:) = [new_start1 new_finish2];
+                new_chromosome2(i,:) = [new_start2 new_finish1];
             else
-                new1 = selectedChromosomes(a,1:c) ;
-                new2 = selectedChromosomes(b,c+1:end);
-                new_chromosome1(i,:) = [new1 new2];
-                new_chromosome2(i,:) = [new2 new1];
+                new_start1 = selectedChromosomes(a,1:c) ;
+                new_finish1 = selectedChromosomes(a,c+1:end);
+                new_start2 = selectedChromosomes(b,1:c);
+                new_finish2 = selectedChromosomes(b,c+1:end);
+                new_chromosome1(i,:) = [new_start1 new_finish2];
+                new_chromosome2(i,:) = [new_start2 new_finish1];
                 
             end
         else

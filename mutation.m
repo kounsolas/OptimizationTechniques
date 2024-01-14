@@ -4,7 +4,7 @@ function mutated = mutation(selectedChromosomes)
 
 
 mutatedChromosomes = selectedChromosomes;
-for i=1:30
+for i=1:50
 
     prob = rand;
     if prob > 0.9

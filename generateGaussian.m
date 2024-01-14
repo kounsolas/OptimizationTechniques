@@ -19,7 +19,7 @@ for k=1:length(x1)
     for j=1:length(y1)
         for i=1:n-1
             power = (x1(k)-c1(i))^2/(2*(s1(i))^2) + (y1(j)-c2(i))^2/(2*(s2(i))^2);
-            value(k,j) = value(k,j) + const(i)*exp(-power);
+            value(k,j) = const(i)*exp(-power);
             
         end
     end

@@ -43,23 +43,19 @@ end
 
 for i=1:maxgenerations
   
-    
+    i
     a = selection(f_values,population,chromosomes,u1,u2);
     crossovers = crossover(a);
     mutated = mutation(a);
     gamatoi = [crossovers;mutated];
     n = population-size(gamatoi,1);
-    k=1;
     beta_males = zeros(n,chromosomesize);
     for j=1:n
         beta_males(j,:) = generateChromosome(chromosomesize);
-        k=k+1;
         %kathe grammi einai mia f
     end
     
 
-
-    
     new_generation=[gamatoi;beta_males];
 end
 
@@ -76,7 +72,9 @@ best_chromosome=chromosomes(index,:);
 
 best_function = fittingFunction(best_chromosome);
 
-
+[X, Y] = meshgrid(u1, u2);
+best_values = double(subs(best_function, {x, y}, {X(:), Y(:)}));
+best_values = reshape(best_values, size(X));
     
    
 
