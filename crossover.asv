@@ -1,8 +1,8 @@
 %pairnei san orisma ta kalytera population/2x75 (chromosomes)
-function new_generation = crossover(selectedChromosomes)
+function new_generation = crossover(selectedChromosomes,population)
 
 new_chromosome1 = zeros(30,size(selectedChromosomes,2));
-%new_chromosome2 = zeros(30,size(selectedChromosomes,2));
+new_chromosome2 = zeros(30,size(selectedChromosomes,2));
 for i=1:30
   
         a = randi(size(selectedChromosomes,1));
@@ -46,18 +46,9 @@ for i=1:30
                     j=j+1;
 
                 end
-
-                j=1;
-                for i=1:5:75
-                element(i) = new_alpha(j);
-                element(i+1) = new_c1(j);
-                element(i+2) = new_c2(j);
-                element(i+3) = new_s1(j);
-                element(i+4) = new_s2(j);
-                j=j+1;
+                for element=1:5:75
+                ele 
                 end
-                new_chromosome1(i,:) = element; 
-
             else
                 j=1;
                 for element=1:5:size(selectedChromosomes,2)
@@ -94,17 +85,6 @@ for i=1:30
                     j=j+1;
                     
                 end
-
-                j=1;
-                for i=1:5:75
-                    element(i) = new_alpha(j);
-                    element(i+1) = new_c1(j);
-                    element(i+2) = new_c2(j);
-                    element(i+3) = new_s1(j);
-                    element(i+4) = new_s2(j);
-                    j=j+1;
-                end
-                new_chromosome1(i,:) = element; 
             end
         else
             continue
@@ -112,7 +92,7 @@ for i=1:30
     
 end
 
-new_generation = [selectedChromosomes;new_chromosome1];
+new_generation = [selectedChromosomes;new_chromosome1;new_chromosome2];
 new_generation=new_generation(any(new_generation,2),any(new_generation,1));
 
 end

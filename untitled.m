@@ -11,7 +11,7 @@
 clear;
 clc;
 tic
-maxgenerations = 100;
+maxgenerations = 1000;
 population = 100; %arithmos pithanon lyseon(list of chromosomes), diladi
     % arithmos ton pithanon synartiseon pou paragontai apo syndyasmous ton 15 gaussian
 numberofGaussians = 15;

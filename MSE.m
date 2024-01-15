@@ -8,7 +8,7 @@ function mse = MSE(f_values,gaussian_values)
 mse = 0;
 for i=1:size(f_values,1)
     for j=1:size(f_values,1)
-        mse =mse + (f_values(i,j) - gaussian_values(i,j));
+        mse =mse + ((f_values(i,j) - gaussian_values(i,j))).^2;
     end
 end
 

@@ -17,7 +17,7 @@ fitness_value = 1000./(1+mse_values); %axreiasto mou fainetai
 %thes ayto me tin megalyteri fitness_value
 %alla blepo oti epistrefeis to vector fitness_value
 
-mse_values = (min(mse_values));
+%mse_values = (min(mse_values));
 
 end
 
