@@ -17,7 +17,7 @@ population = 100; %arithmos pithanon lyseon(list of chromosomes), diladi
 numberofGaussians = 15;
 chromosomesize = numberofGaussians*5; %καθε gaussian exei 5 stoixeia kai to genome
     %apoteleitai max 15 gaussians ara genomesize = 75
-
+err = zeros(1,maxgenerations+1);
 syms x y
 f(x, y) = sin(x + y) * sin(y^2);
 u1 = linspace(-1, 2, 25);
@@ -40,8 +40,9 @@ for i=1:population
   %kathe grammi einai mia f
 end
 
+
     a = selection(f_values,population,chromosomes,u1,u2);
-    crossovers = crossover(a);
+    crossovers = intermediateCrossover(a);
     mutated = mutation(a);
     gamatoi = [crossovers;mutated];
     n = population-size(gamatoi,1);
@@ -53,11 +54,13 @@ end
     
 
     new_generation=[gamatoi;beta_males];
+  
 
 
 for i=1:maxgenerations
   
     i
+
     a = selection(f_values,population,new_generation,u1,u2);
     crossovers = intermediateCrossover(a);
     mutated = mutation(a);
@@ -71,18 +74,17 @@ for i=1:maxgenerations
     
 
     new_generation=[gamatoi;beta_males];
+
 end
 
 
 
-for i=1:population
-    gaussian_values = generateGaussian(new_generation(i,:),u1,u2);
-    best(i) = MSE(f_values,gaussian_values);
-end
+    best = bestfitness(f_values,population,new_generation,u1,u2);
 
-[~,index] = min(best);
 
-best_chromosome=chromosomes(index,:);
+[~,index] = max(best);
+
+best_chromosome=new_generation(index,:);
 
 best_function = fittingFunction(best_chromosome);
 
@@ -95,8 +97,10 @@ best_values = reshape(best_values, size(X));
 fsurf(best_function,[-1 2 -2 1])
 colorbar
 figure
+
 fsurf(f,[-1 2 -2 1])
 colorbar
+
 
 
 toc

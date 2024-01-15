@@ -4,9 +4,9 @@ function selected = selection(f_values,population,chromosomes,u1,u2)
     %dialegei stin TYXI 50 apo ta 100 chromosomes
     %selected = zeros(50,length(chromosomes(1,:))); 
     % metric is the MSE for each of the chromosomes
-   
+   %{
     metric = bestfitness(f_values,population,chromosomes,u1,u2);
-    output = sort(metric);
+    output = sort(metric,'descend');
     weight = sort(linspace(0.005,1,population),'descend');
     
     out = randsample(output,(population/2),true,weight);
@@ -17,7 +17,7 @@ function selected = selection(f_values,population,chromosomes,u1,u2)
         if length(find(metric==out(i))) > 1
             k = find(metric==out(i));
             index(i) = k(1);
-            %i = i + length(find(metric==out(i)));
+           % i = i + length(find(metric==out(i)));
             %i+length(find(metric==out(i)))-1
         else
             index(i) = find(metric==out(i));
@@ -25,7 +25,14 @@ function selected = selection(f_values,population,chromosomes,u1,u2)
     end
 
     selected = chromosomes(index,:);
-   
+
+   %}
+
+   metric = bestfitness(f_values,population,chromosomes,u1,u2);
+   for i=1:(population/2)
+       index(i) = roulette_wheel_selection(metric);
+   end
+   selected = chromosomes(index,:);
 
 %{
 metric = bestfitness(f_values,population,chromosomes,u1,u2);

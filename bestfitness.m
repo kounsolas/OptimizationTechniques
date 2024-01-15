@@ -1,4 +1,4 @@
-function mse_values = bestfitness(f_values,population,chromosomes,u1,u2)
+function fitness_value = bestfitness(f_values,population,chromosomes,u1,u2)
 
 % f_values 40x40 matrix
 % gaussian_values 40x40 matrix
@@ -13,19 +13,25 @@ for i=1:population
 
 end
 
+fitness_value = 1000./(1+mse_values);
+
+mse_values = (min(mse_values));
+
+end
 
 %{
-chromosome_worth = zeros(1,population);
+
+chromosomes_worth = zeros(1,population);
 for i=1 : population
     chromosome_values = generateGaussian(chromosomes(i,:),u1,u2);
     chromosome_rounded_values = round(chromosome_values,4);
     f_rounded_values = round(f_values,4);
     comparison_matrix = (chromosome_rounded_values == f_rounded_values);
-    chromosome_worth(i) = length(find(comparison_matrix));
+    chromosomes_worth(i) = length(find(comparison_matrix));
+
+end
+
 
 end
 %}
-
-end
-
 
