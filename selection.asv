@@ -1,8 +1,8 @@
 %pairnei san orisma ton pinaka 100x75 (chromosomes)
 function selected = selection(f_values,population,chromosomes,u1,u2)
     
-    
-    %selected = zeros(population/2,length(chromosomes(1,:))); 
+    %dialegei stin TYXI 50 apo ta 100 chromosomes
+    %selected = zeros(50,length(chromosomes(1,:))); 
     % metric is the MSE for each of the chromosomes
    %{
     metric = bestfitness(f_values,population,chromosomes,u1,u2);

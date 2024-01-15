@@ -1,13 +1,13 @@
-function mutated = mutation(selectedChromosomes)
-% function to perform mutations on the 50 best candidates
+function mutated = mutation(selectedChromosomes,population)
+% function to perform mutations on the population/2 best candidates
 
 
 
 mutatedChromosomes = selectedChromosomes;
-for i=1:50
+for i=1:round(population/2)
 
     prob = rand;
-    if prob > 0.9
+    if prob > population/100 -0.1
         %Perform a mutation
         p = randi(75);
         index(i) = i;
