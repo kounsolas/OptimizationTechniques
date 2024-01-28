@@ -1,33 +1,33 @@
+%{
 function mutated = mutation(selectedChromosomes,population)
 % function to perform mutations on the population/2 best candidates
 
 
 
 mutatedChromosomes = selectedChromosomes;
-for i=1:round(population/2)
+for i=1:round(population)
 
     prob = rand;
-    if prob > population/100 -0.1
+    
         %Perform a mutation
         p = randi(75);
         index(i) = i;
         switch mod(p,5)
     
             case 1
-                mutatedChromosomes(i,p) = -0.5 + (0.8-(-0.5))*rand;
+                mutatedChromosomes(i,p) = -0.5 + (0.8-(-0.5))*normrnd(0,1);
             case 2
-                mutatedChromosomes(i,p) = 1 + (4-1)*rand;
+                mutatedChromosomes(i,p) = 1 + (4-1)*normrnd(0,1);
             case 3
-                mutatedChromosomes(i,p) = 1 + (3-1)*rand;
+                mutatedChromosomes(i,p) = 1 + (3-1)*normrnd(0,1);
             case 4
-                mutatedChromosomes(i,p) = 0.3 + (1-0.3)*rand;
+                mutatedChromosomes(i,p) = 0.3 + (1-0.3)*normrnd(0,1);
             case 0
-                mutatedChromosomes(i,p) = 0.3 + (1-0.3)*rand;
+                mutatedChromosomes(i,p) = 0.3 + (1-0.3)*normrnd(0,1);
         end
-    else
-        index(i) = 0;
+  
     
-    end
+  
 
 end
 
@@ -46,3 +46,38 @@ mutated=mutated(any(mutated,2),any(mutated,1));
 
 
 end
+%}
+function mutated = mutation(selectedChromosomes,population)
+% function to perform mutations on the population/2 best candidates
+
+
+
+for i=1:round(population)
+    mutated_gene = randi(population);
+    prob = rand;
+    if prob > 0
+        index(i) = i;
+        for j = 1:5:75
+            selectedChromosomes(mutated_gene,j) = -0.5 + (0.8-(-0.5))*normrnd(0,1);
+            selectedChromosomes(mutated_gene,j+1) = 1 + (4-1)*normrnd(0,1);
+            selectedChromosomes(mutated_gene,j+2) = 1 + (3-1)*normrnd(0,1);
+            selectedChromosomes(mutated_gene,j+3) = 0.3 + (1-0.3)*normrnd(0,1);
+            selectedChromosomes(mutated_gene,j+4) = 0.3 + (1-0.3)*normrnd(0,1);
+        %Perform a mutation
+        end
+    end
+  
+
+end
+
+
+
+
+
+    
+mutated = selectedChromosomes;
+
+
+end
+
+

@@ -4,12 +4,13 @@ function selected = selection(f_values,population,chromosomes,u1,u2)
     
     %selected = zeros(population/2,length(chromosomes(1,:))); 
     % metric is the MSE for each of the chromosomes
-   %{
+%{
+
     metric = bestfitness(f_values,population,chromosomes,u1,u2);
-    output = sort(metric,'descend');
-    weight = sort(linspace(0.005,1,population),'descend');
+    output = sort(metric);
+    weight = sort(linspace(0.005,0.9998,population));
     
-    out = randsample(output,(population/2),true,weight);
+    out = randsample(output,population/2,true,weight);
 
     %index=zeros(1,length(out));
     for i=1:length(out)
@@ -25,26 +26,58 @@ function selected = selection(f_values,population,chromosomes,u1,u2)
     end
 
     selected = chromosomes(index,:);
+   
+%}
+   
+    n = size(chromosomes,2);
+    Fitness=bestfitness(f_values,population,chromosomes,u1,u2);
+    TotalFitness=sum(Fitness);
+    ProbSelection=zeros(population,1);
+    CumProb=zeros(population,1);
 
-   %}
+    for i=1:population
+        ProbSelection(i)=Fitness(i)/TotalFitness;
+        if i==1
+            CumProb(i)=ProbSelection(i);
+        else
+            CumProb(i)=CumProb(i-1)+ProbSelection(i);
+        end
+    end
 
-   metric = bestfitness(f_values,population,chromosomes,u1,u2);
-   for i=1:(population/2)%round(population/2) mporei population = 15
-       index(i) = roulette_wheel_selection(metric);
-   end
-   selected = chromosomes(index,:);
+    SelectInd=rand(population,1);
 
+    for i=1:population/2
+        flag=0;
+        for j=1:population
+            if(CumProb(j)<SelectInd(i) && CumProb(j+1)>=SelectInd(i))
+                SelectedPop(i,1:n)= chromosomes(j+1,1:n);
+                index(i) = j+1;
+                flag=1;
+                break;
+            end
+        end
+        if(flag==0)
+            SelectedPop(i,1:n)= chromosomes(1,1:n);
+        end
+    end
+
+    selected = SelectedPop;
+
+
+
+  
 %{
-metric = bestfitness(f_values,population,chromosomes,u1,u2);
+
+metric = bestfitness(f_values,size(chromosomes,1),chromosomes,u1,u2);
 
     for i=1:(population/2)
-        [~,index(i)] = min(metric);
+        [~,index(i)] = max(metric);
         metric(index(i)) = NaN;
 
     end
 
     selected = chromosomes(index,:);
-%}
 
+%}
 
 end

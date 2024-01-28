@@ -2,6 +2,7 @@
 % input is an array of any real number values
 % output is the selection of one of the elements marked by its index
 % location
+
 function [index] =  roulette_wheel_selection(arrayInput)
 len = length(arrayInput);
 % if input is one element then just return rightaway

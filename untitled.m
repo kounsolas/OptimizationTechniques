@@ -11,7 +11,7 @@
 clear;
 clc;
 tic
-maxgenerations = 1000;
+maxgenerations = 100;
 population = 100; %arithmos pithanon lyseon(list of chromosomes), diladi
     % arithmos ton pithanon synartiseon pou paragontai apo syndyasmous ton 15 gaussian
 numberofGaussians = 15;
@@ -22,6 +22,7 @@ syms x y
 f(x, y) = sin(x + y) * sin(y^2);
 u1 = linspace(-1, 2, 25);
 u2 = linspace(-2, 1, 25);
+
     
 % Create a grid of values for u1 and u2
 [U1, U2] = meshgrid(u1, u2);
@@ -41,45 +42,39 @@ for i=1:population
 end
 
 
-a = selection(f_values,population,chromosomes,u1,u2);
-crossovers = intermediateCrossover(a);
-mutated = mutation(a,population); 
-gamatoi = [crossovers;mutated];
-n = population-size(gamatoi,1);
-beta_males = zeros(n,chromosomesize);
-for j=1:n
-    beta_males(j,:) = generateChromosome(chromosomesize);
-    %kathe grammi einai mia f
-end
+crossovers = crossover(chromosomes,population,f_values,u1,u2);
+new_generation = mutation(crossovers,population);
+
+
+
+
+best = bestfitness(f_values,population,new_generation,u1,u2);
+[~,index] = max(best);
+best_chromosome_generations(1,:)=new_generation(index,:);
+err(1) = MSE(f_values,generateGaussian(best_chromosome_generations(1,:),u1,u2));
     
 
-new_generation=[gamatoi;beta_males];
+
   
 
 
 for i=1:maxgenerations
   
     i
-
-    a = selection(f_values,population,new_generation,u1,u2);
-    crossovers = intermediateCrossover(a);
-    mutated = mutation(a,population);
-    gamatoi = [crossovers;mutated];
-    n = population-size(gamatoi,1);
-    beta_males = zeros(n,chromosomesize);
-    for j=1:n
-        beta_males(j,:) = generateChromosome(chromosomesize);
-        %kathe grammi einai mia f
-    end
+   
+        a = crossover(new_generation,population,f_values,u1,u2);
+        new_generation = mutation(a,population);
     
-
-    new_generation=[gamatoi;beta_males];
-
-    %brisko se kathe genia to kalytero (DEBUGGING)
-    best = bestfitness(f_values,population,new_generation,u1,u2);
-    [~,index] = max(best);
-    best_chromosome_generations(i,:)=new_generation(index,:);
-    err(i) = MSE(f_values,generateGaussian(best_chromosome_generations(i,:),u1,u2));
+    
+        disp('ΓΙΑΤΙ ΕΙΣΑΙ ΒΛΑΜΜΕΝΟ??????????')
+      
+    
+        %brisko se kathe genia to kalytero (DEBUGGING)
+        best = bestfitness(f_values,population,new_generation,u1,u2);
+        [~,index] = max(best);
+        best_chromosome_generations(i+1,:)=new_generation(index,:);
+        err(i+1) = MSE(f_values,generateGaussian(best_chromosome_generations(i+1,:),u1,u2));
+    
     
 
 end
@@ -102,10 +97,10 @@ best_values = double(subs(best_function, {x, y}, {X(:), Y(:)}));
 best_values = reshape(best_values, size(X));
     
    
-
+figure()
 fsurf(best_function,[-1 2 -2 1])
 colorbar
-figure
+figure()
 
 fsurf(f,[-1 2 -2 1])
 colorbar
