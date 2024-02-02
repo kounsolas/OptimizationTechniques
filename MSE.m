@@ -12,7 +12,7 @@ for i=1:size(f_values,1)
     end
 end
 
-
+mse = mse/(25^2);
 
 
 %p = sum(sum(mse)); 

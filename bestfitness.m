@@ -1,4 +1,4 @@
-function [fitness_value] = bestfitness(f_values,population,chromosomes,u1,u2)
+function fitness_value = bestfitness(f_values,population,chromosomes,u1,u2)
 
 % f_values 40x40 matrix
 % gaussian_values 40x40 matrix
@@ -8,16 +8,12 @@ function [fitness_value] = bestfitness(f_values,population,chromosomes,u1,u2)
 mse_values = zeros(1,population);
 
 for i=1:population
-    gaussian_values = generateGaussian(chromosomes(i,:),u1,u2); 
+    gaussian_values = generateGaussian(chromosomes(i,:),u1,u2); %gia kathe chromoome epistrefei enan arithmos_simeionxarithmos_simeion pinaka
     mse_values(i) = MSE(f_values,gaussian_values);
 
 end
 
-fitness_value = 10./(1+mse_values); 
-
-
-
-%axreiasto mou fainetai
+fitness_value = 1000./(1+mse_values); %axreiasto mou fainetai
 %thes ayto me tin megalyteri fitness_value
 %alla blepo oti epistrefeis to vector fitness_value
 
