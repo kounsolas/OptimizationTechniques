@@ -1,4 +1,4 @@
-%BALE KANE SXOLIO PALIO MALAKA
+ %BALE KANE SXOLIO PALIO MALAKA
 
 %xreiazomai
 %genetic representation of a solution (chromosomes)
