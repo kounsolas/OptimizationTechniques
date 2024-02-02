@@ -1,6 +1,6 @@
-function new_generation = intermediateCrossover(chromosomes,f_values,population,u1,u2)
+function new_generation = intermediateCrossover2(selectedChromosomes,population)
 
-[selectedChromosomes,index] = selection(f_values,population,chromosomes,u1,u2);
+
 iterations = population/4;
 % a(i) = parent1*b + parent2*(1-b)
 b_A =  -0.25 + 1.5*rand(iterations,1);% b randomly in [-0.25,1.25]
@@ -11,8 +11,8 @@ b_s2 = -0.25 + 1.5*rand(iterations,1);% b randomly in [-0.25,1.25]
 
 for i=1:(iterations)
   
-    parent1 = selectedChromosomes(index(i),:);
-    parent2 = selectedChromosomes(index(i+1),:);
+    parent1 = selectedChromosomes(randi(population/2),:);
+    parent2 = selectedChromosomes(randi(population/2),:);
 
     k = 1;
     for j = 1 : 5 : 75

@@ -48,17 +48,17 @@ mutated=mutated(any(mutated,2),any(mutated,1));
 end
 %}
 function mutated = mutation(selectedChromosomes,population)
-% function to perform mutations on the population/2 best candidates
+% function to perform mutations on the population
 
 
 
-for i=1:round(population)
+for i=1:population
     mutated_gene = randi(population);
     prob = rand;
-    if prob > 0
+    if prob < 0.1
         index(i) = i;
         for j = 1:5:75
-            selectedChromosomes(mutated_gene,j) = -0.5 + (0.8-(-0.5))*normrnd(0,1);
+            selectedChromosomes(mutated_gene,j)   = -0.5 + (0.8-(-0.5))*normrnd(0,1);
             selectedChromosomes(mutated_gene,j+1) = 1 + (4-1)*normrnd(0,1);
             selectedChromosomes(mutated_gene,j+2) = 1 + (3-1)*normrnd(0,1);
             selectedChromosomes(mutated_gene,j+3) = 0.3 + (1-0.3)*normrnd(0,1);
@@ -69,11 +69,6 @@ for i=1:round(population)
   
 
 end
-
-
-
-
-
     
 mutated = selectedChromosomes;
 

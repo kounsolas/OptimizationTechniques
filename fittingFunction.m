@@ -4,7 +4,7 @@ syms x y
 gaussianFunctions = cell(1,15);
 
    n = 1;
-   for i = 1:5:length(chromosome)
+   for i = 1:5:75
     
      const = chromosome(i);
      c1 = chromosome(i+1);

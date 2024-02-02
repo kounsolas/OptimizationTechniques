@@ -2,7 +2,7 @@ function value_Gaussian = generateGaussian(chromosome,x1,y1)
 
 
    n = 1;
-   for i = 1:5:length(chromosome)
+   for i = 1:5:75
     
      const(n) = chromosome(i);
      c1(n) = chromosome(i+1);
@@ -17,7 +17,7 @@ function value_Gaussian = generateGaussian(chromosome,x1,y1)
 value = zeros(length(x1),length(y1));
 for k=1:length(x1)
     for j=1:length(y1)
-        for i=1:n-1
+        for i=1:15
             power = (x1(k)-c1(i))^2/(2*(s1(i))^2) + (y1(j)-c2(i))^2/(2*(s2(i))^2);
             value(k,j) = const(i)*exp(-power);
             

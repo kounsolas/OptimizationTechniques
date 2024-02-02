@@ -17,7 +17,7 @@ population = 100; %arithmos pithanon lyseon(list of chromosomes), diladi
 numberofGaussians = 15;
 chromosomesize = numberofGaussians*5; %καθε gaussian exei 5 stoixeia kai to genome
     %apoteleitai max 15 gaussians ara genomesize = 75
-err = zeros(1,maxgenerations);
+err = zeros(maxgenerations+1,1);
 syms x y
 f(x, y) = sin(x + y) * sin(y^2);
 u1 = linspace(-1, 2, 25);
@@ -42,7 +42,7 @@ for i=1:population
 end
 
 
-crossovers = crossover(chromosomes,population,f_values,u1,u2);
+crossovers = intermediateCrossover(chromosomes,f_values,population,u1,u2);
 new_generation = mutation(crossovers,population);
 
 
@@ -60,13 +60,10 @@ err(1) = MSE(f_values,generateGaussian(best_chromosome_generations(1,:),u1,u2));
 
 for i=1:maxgenerations
   
-    i
+         i
    
-        a = crossover(new_generation,population,f_values,u1,u2);
-        new_generation = mutation(a,population);
-    
-    
-        disp('ΓΙΑΤΙ ΕΙΣΑΙ ΒΛΑΜΜΕΝΟ??????????')
+        crossovers = intermediateCrossover(new_generation,f_values,population,u1,u2);
+        new_generation = mutation(crossovers,population);
       
     
         %brisko se kathe genia to kalytero (DEBUGGING)
@@ -74,6 +71,12 @@ for i=1:maxgenerations
         [~,index] = max(best);
         best_chromosome_generations(i+1,:)=new_generation(index,:);
         err(i+1) = MSE(f_values,generateGaussian(best_chromosome_generations(i+1,:),u1,u2));
+
+        if (err(i+1) >= err(i))
+            selected = selection2(new_generation,f_values,population,u1,u2);
+            offsprings = intermediateCrossover2(selected,population);
+            new_generation = mutation(offsprings,population);
+        end
     
     
 
@@ -92,9 +95,9 @@ best_chromosome=new_generation(index,:);
 
 best_function = fittingFunction(best_chromosome);
 
-[X, Y] = meshgrid(u1, u2);
-best_values = double(subs(best_function, {x, y}, {X(:), Y(:)}));
-best_values = reshape(best_values, size(X));
+%[X, Y] = meshgrid(u1, u2);
+%best_values = double(subs(best_function, {x, y}, {X(:), Y(:)}));
+%best_values = reshape(best_values, size(X));
     
    
 figure()
@@ -105,7 +108,8 @@ figure()
 fsurf(f,[-1 2 -2 1])
 colorbar
 
-
+figure
+plot(1:maxgenerations+1,err)
 
 toc
 
