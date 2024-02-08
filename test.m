@@ -1,30 +1,52 @@
-    clear;
+clear;
 
-    metric = [3 4 5 3 2 1 7 5 1 2 2 9 4];
-    s = sum(metric);
-    SelectInd=rand(100,1);
-    output = sort(metric);
-    weight = sort(linspace(0.005,0.9998,length(metric)));
-    
-    out = randsample(output,round(length(metric)/2),true,weight);
-
-    %index=zeros(1,length(out));
-    for i=1:length(out)
-
-        if length(find(metric==out(i))) > 1
-            k = find(metric==out(i));
-            index(i) = k(1);
-           % i = i + length(find(metric==out(i)));
-            %i+length(find(metric==out(i)))-1
-        else
-            index(i) = find(metric==out(i));
-        end
-    end
-    c = metric(index);
-for i=1:round(length(metric)/2)
-    a(i) = roulette_wheel_selection(metric);
-    b(i) = metric(a(i));
-    metric(a(i)) = [];
+syms u1 u2
+f(u1,u2) = sin(u1+u2)*sin(u2^2);
+%test6.mat -> 10000 generations  % test5.mat -> 15000 generations
+folder = 'C:\Users\chris\OneDrive\Έγγραφα\Github\OptimizationTechniques\OptimizationTechniques-main'; 
+fullMatFileName = fullfile(folder,  'test6.mat');
+if ~exist(fullMatFileName, 'file')
+  message = sprintf('%s does not exist', fullMatFileName);
+  uiwait(warndlg(message));
+else
+  s = load(fullMatFileName);
 end
+%12003
+figure
+plot(1:s.maxgenerations,s.err)
+title('Best Fitness')
+xlabel('Generations')
+ylabel('ΜSE')
+figure
+
+nexttile
+fsurf(s.best_function,[-1 2 -2 1])
+xlabel('X');
+ylabel('Y');
+title('Αποτέλεσμα του γενετικού αλγορίθμου')
+
+nexttile
+fsurf(f,[-1 2 -2 1])
+xlabel('X');
+ylabel('Y');
+title('Πραγματική συνάρτηση')
+colorbar
+
+
+figure
+
+nexttile
+fsurf(s.best_function)
+xlabel('X');
+ylabel('Y');
+title('Αποτέλεσμα του γενετικού αλγορίθμου')
+
+nexttile
+fsurf(f)
+xlabel('X');
+ylabel('Y');
+title('Πραγματική συνάρτηση')
+colorbar
+
 
 
