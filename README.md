@@ -36,6 +36,4 @@ with a sum of 15 two-dimensional Gaussians.
 
 Open MATLAB in the repository folder and run `main` to train, or `test` to plot the saved results.
 
-`test.m` loads the results from a hard-coded Windows path. Change the `folder` variable to your local path before running it.
-
 Requires the Symbolic Math Toolbox.

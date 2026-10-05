@@ -3,7 +3,7 @@ clear;
 syms u1 u2
 f(u1,u2) = sin(u1+u2)*sin(u2^2);
 %test6.mat -> 10000 generations  % test5.mat -> 15000 generations
-folder = 'C:\Users\chris\OneDrive\Έγγραφα\Github\OptimizationTechniques\OptimizationTechniques-main'; 
+folder = fileparts(mfilename('fullpath')); % folder containing this script
 fullMatFileName = fullfile(folder,  'test6.mat');
 if ~exist(fullMatFileName, 'file')
   message = sprintf('%s does not exist', fullMatFileName);
